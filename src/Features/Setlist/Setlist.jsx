@@ -2,7 +2,7 @@
 import { jsx, css, } from '@emotion/core'
 import { Box } from './Box'
 import { sortByIndex } from '../../appHelper'
-import AddItemForm from './AddItem'
+import { AddItemForm, AddThingTrigger } from './AddItem'
 
 const Wrapper = props => (
   <div css={css`
@@ -13,11 +13,12 @@ const Wrapper = props => (
 )
 
 export const Setlist = ({ useSetlistContext }) => {
-  const { items, addItem } = useSetlistContext()
+  const { items, addItem, formVisible, setFormVisible } = useSetlistContext()
   return (
     <Wrapper>
-      {/* <AddItemForm addItem={addItem} /> */}
+      <AddItemForm onSubmit={addItem} formVisible={formVisible} />
       {items.sort(sortByIndex).map((item, key) => <Box {...{ key, item }} />)}
+      <AddThingTrigger onClick={() => setFormVisible(!formVisible)} />
     </Wrapper>
   )
 }

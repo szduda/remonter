@@ -72,11 +72,15 @@ export const BottomContent = ({ visible, onClose, children, ...props }) => (
   </section>
 )
 
-const Row = ({ align, valign, ...props }) => (
+const Row = ({ align, valign, wide, ...props }) => (
   <div css={css`
     display: flex;
     justify-content: ${align || 'space-between'};
-    align-items: ${valign || 'flex-start'}
+    align-items: ${valign || 'flex-start'};
+    width: ${wide ? '100%' : 'auto'};
+    >:last-of-type {
+      margin-right: 0 !important;
+    }
   `} {...props} />
 )
 
@@ -127,14 +131,25 @@ export const Theme = props => (
     }
 
     textarea, input {
-      background: ${colors.gray};
-      color: ${colors.white};
+      background: ${colors.white};
+      color: ${colors.black};
       margin: 4px 0 16px;
-      border: none;
-      padding: 4px;
+      border-radius: 4px;
+      border: 1px solid ${colors.grayLight};
+      padding: 6px 4px 0;
       min-width: 24px;
       font-size: 12px;
       line-height: 16px;
+      font-weight: 700;
+
+      &::placeholder {
+        color: ${colors.gray};
+        font-weight: 400;
+      }
+
+      &:focus {
+        outline: ${colors.yellowDark} auto 1px;
+      }
     }
 
     input {
@@ -171,7 +186,8 @@ export const Theme = props => (
 
 export const Button = props => (
   <button css={css`      
-    border: 0;
+    border-radius: 4px;
+    border: 1px solid ${colors.grayLight};
     font: 500 12px Consolas;
     background: none;
     outline: none;
@@ -199,4 +215,38 @@ export const Link = props => (
       transform: scaleX(0.97);
     }
   `} {...props} />
+)
+
+export const FAB = ({ top, ...rest }) => (
+  <Button css={css`
+    z-index: 1000;
+    border-radius: 50%;
+    position: fixed;
+    ${top ? 'top' : 'bottom'}: 12px;
+    right: 24px;
+    display: flex;
+    padding: 8px;
+    margin: 0;
+    background: ${colors.black};
+    border: 1px solid ${colors.gray};
+    box-shadow: 0 0 4px 0 ${colors.grayDark};
+    transition: transform 100ms ease-out, background 100ms ease-out;
+
+    > svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    :hover {
+      background: ${colors.greenDark};
+    }
+
+    > {
+    transition: transform 100ms ease-out;
+    }
+
+    :active, >:active {
+      transform: scale(0.97);
+    }
+  `} {...rest} />
 )

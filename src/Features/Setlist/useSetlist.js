@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useStore } from '../../StateManager/Store'
 import { Setlist } from './Setlist'
 import { getNextId } from '../../appHelper'
@@ -8,6 +8,7 @@ export const useSetlist = ({ DataService }) => {
     const { state, actions } = useStore()
     const { setItems } = actions.setlist
     const { setlist } = state
+    const [formVisible, setFormVisible] = useState(false)
 
     useEffect(() => {
       const asyncEffect = async () => setItems({ items: await DataService.fetchItems() })
@@ -24,8 +25,9 @@ export const useSetlist = ({ DataService }) => {
       })
     }
 
+
     const items = Object.keys(setlist).map(key => setlist[key]);
-    return { items, addItem }
+    return { items, addItem, formVisible, setFormVisible }
   }
 
   return () => <Setlist {...{ useSetlistContext }} />

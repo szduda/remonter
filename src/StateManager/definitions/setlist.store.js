@@ -13,7 +13,7 @@ export const setlistReducer = (state, action) => {
         ...payload.items
       }
     case 'updateItem':
-      const index = state.findIndex(i => i.id === payload.id)
+      const index = Object.keys(state).map(o => state[o]).findIndex(i => i.id === payload.id)
       return {
         ...state,
         [index]: { ...state[index], ...payload.item }

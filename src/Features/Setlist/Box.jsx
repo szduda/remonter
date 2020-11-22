@@ -31,7 +31,6 @@ export const Box = ({ item }) => {
       myAudio.removeEventListener('canplaythrough', setTime)
     }
 
-    console.log('h', myAudio);
     myAudio.addEventListener('canplaythrough', setTime);
     myAudio.load();
   }
