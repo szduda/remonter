@@ -53,6 +53,7 @@ export const AddItemForm = ({ onSubmit, formVisible }) => {
       transition: all 400ms ease-out;
       height: ${formVisible ? '244px' : 0};
       overflow: hidden;
+      margin-top: ${formVisible ? 24 : 0}px;
       margin-bottom: ${formVisible ? 32 : 0}px;
     `}>
       <form>
@@ -81,15 +82,13 @@ export const AddItemForm = ({ onSubmit, formVisible }) => {
             value={item.fileName}
             onChange={event => setItem({ ...item, fileName: Number(event.target.value) })} />
         </Flex.Col>
-        <Icons.Exclamation
-          color={colors.red}
-          css={css`
-            visibility: ${isValid ? 'hidden' : 'visible'};
-            position: absolute;
-            bottom: 64px;
-            right: 16px;
-          `} />
         <div css={css`display: flex; justify-content: flex-end;`}>
+          <Icons.Exclamation
+            color={colors.red}
+            css={css`
+            visibility: ${isValid ? 'hidden' : 'visible'};
+            margin-right: 8px;
+          `} />
           <Button onClick={submit} role="submit">
             <Icons.Add color={colors.green} />
             <span css={css`

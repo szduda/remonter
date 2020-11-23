@@ -106,13 +106,15 @@ export const Theme = props => (
     background: ${colors.white};
     color: ${colors.black};
     max-width: 800px;
+    margin: 0 auto;
+    position: relative;
     
     header {
       position: fixed;
       top: 0;
-      left: 0;
-      right: 0;
       z-index: 1000;
+      width: 100%;
+      max-width: 800px;
     }
     
     div {
@@ -221,7 +223,7 @@ export const FAB = ({ top, ...rest }) => (
   <Button css={css`
     z-index: 1000;
     border-radius: 50%;
-    position: fixed;
+    position: absolute;
     ${top ? 'top' : 'bottom'}: 12px;
     right: 24px;
     display: flex;
