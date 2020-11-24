@@ -8,7 +8,10 @@ export const useSetlist = ({ DataService }) => {
     const { state, actions } = useStore()
     const { setItems } = actions.setlist
     const { setlist } = state
-    const [formVisible, setFormVisible] = useState(false)
+    const [visibility, setVisibility] = useState({
+      form: false, 
+      preview: null
+    })
 
     useEffect(() => {
       const asyncEffect = async () => setItems({ items: await DataService.fetchItems() })
@@ -27,7 +30,7 @@ export const useSetlist = ({ DataService }) => {
 
 
     const items = Object.keys(setlist).map(key => setlist[key]);
-    return { items, addItem, formVisible, setFormVisible }
+    return { items, addItem, visibility, setVisibility }
   }
 
   return () => <Setlist {...{ useSetlistContext }} />

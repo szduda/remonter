@@ -24,6 +24,7 @@ export const colors = {
   white: '#F1FAEA',
   black: '#243230',
 
+  grayLighter: '#AFBCBC',
   grayLight: '#808E88',
   gray: '#334746',
   grayDark: '#2B3B3A',
@@ -186,21 +187,22 @@ export const Theme = props => (
   `} {...props} />
 )
 
-export const Button = props => (
+export const Button = ({filled, ...rest}) => (
   <button css={css`      
     border-radius: 4px;
-    border: 1px solid ${colors.grayLight};
+    border: ${filled ? 'none' :  `1px solid ${colors.grayLight}`};
     font: 500 12px Consolas;
-    background: none;
+    background: ${filled ? colors.grayLighter : 'none'};
     outline: none;
     display: flex;
     justify-content: center;
     transition: transform 100ms ease-out;
+    padding: 8px;
     
     *:active, :active {
       transform: scaleX(0.97);
     }
-  `} {...props} />
+  `} {...rest} />
 )
 
 export const Link = props => (
@@ -225,7 +227,7 @@ export const FAB = ({ top, ...rest }) => (
     border-radius: 50%;
     position: absolute;
     ${top ? 'top' : 'bottom'}: 12px;
-    right: 24px;
+    right: 20px;
     display: flex;
     padding: 8px;
     margin: 0;

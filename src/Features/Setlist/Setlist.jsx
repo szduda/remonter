@@ -2,23 +2,31 @@
 import { jsx, css, } from '@emotion/core'
 import { Box } from './Box'
 import { sortByIndex } from '../../appHelper'
-import { AddItemForm, AddThingTrigger } from './AddItem'
+import { AddItemForm, AddFormTrigger } from './AddItem'
 
 const Wrapper = props => (
   <div css={css`
-  padding: 76px 4px 64px;
+  padding: 80px 4px 0;
   display: flex;
   flex-direction: column;
   `} {...props} />
 )
-
+  
 export const Setlist = ({ useSetlistContext }) => {
-  const { items, addItem, formVisible, setFormVisible } = useSetlistContext()
+  const { items, addItem, visibility, setVisibility } = useSetlistContext()
   return (
     <Wrapper>
-      <AddItemForm onSubmit={addItem} formVisible={formVisible} />
-      {items.sort(sortByIndex).map((item, key) => <Box {...{ key, item }} />)}
-      <AddThingTrigger onClick={() => setFormVisible(!formVisible)} />
+      <AddItemForm onSubmit={addItem} formVisible={visibility.form} />
+      {items.sort(sortByIndex).map((item, key) =>
+        <Box {...{ 
+          key, 
+          item, 
+          rich: visibility.preview === item.id,
+          hidden: visibility.preview && visibility.preview !== item.id,
+          togglePreview: () => setVisibility({preview: visibility.preview ? null : item.id})
+        }} />
+      )}
+      <AddFormTrigger onClick={() => setVisibility({form: !visibility.form})} />
     </Wrapper>
   )
 }

@@ -3,10 +3,15 @@ import { jsx, css } from '@emotion/core'
 import { useState } from 'react';
 import { colors, Icons, Button, Flex, FAB } from '../theme'
 
-export const AddThingTrigger = props => (
-  <FAB top {...props}>
-    <Icons.Add color={colors.yellow} />
-  </FAB>
+export const AddFormTrigger = props => (
+  <div css={css`
+    align-self: flex-end;
+    margin-right: 64px;
+  `}>
+    <FAB top css={css`position: fixed; right: unset;`} {...props}>
+      <Icons.Add color={colors.yellow} />
+    </FAB>
+  </div>
 )
 
 const Textbox = ({ label = '', wide = false, ...props }) => (
