@@ -8,8 +8,8 @@ export const DataService = {
     await db_setlist.once('value', snapshot => {
       snapshot.forEach(function (childSnapshot) {
         const id = childSnapshot.key;
-        const { title, description, index, files } = childSnapshot.val();
-        items.push({ id, title, description, index, fileName: files[0] })
+        const { title, description, index, files, labels } = childSnapshot.val();
+        items.push({ id, title, description, index, fileName: files[0], labels })
       });
     })
     return items

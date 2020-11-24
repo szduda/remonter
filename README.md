@@ -8,7 +8,8 @@ then run the app with `yarn start`.
 - [ ] Hosting
 
 Viewer:
-- [ ] Time labels with description
+- [x] Time labels with description
+- [x] Sync audio panel, time labels and description
 
 Editor:
 - [ ] Modify time labels

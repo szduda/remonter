@@ -9,7 +9,7 @@ export const useSetlist = ({ DataService }) => {
     const { setItems } = actions.setlist
     const { setlist } = state
     const [visibility, setVisibility] = useState({
-      form: false, 
+      form: false,
       preview: null
     })
 

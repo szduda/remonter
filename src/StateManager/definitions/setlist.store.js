@@ -1,7 +1,12 @@
 export const defaultState = {}
 
+const getIndex = (obj, id) => Object.keys(obj)
+  .map(id => obj[id])
+  .findIndex(i => i.id === id)
+
 export const setlistReducer = (state, action) => {
   const { payload, type } = action
+
   switch (type) {
     case 'addItem':
       return {
@@ -13,10 +18,18 @@ export const setlistReducer = (state, action) => {
         ...payload.items
       }
     case 'updateItem':
-      const index = Object.keys(state).map(o => state[o]).findIndex(i => i.id === payload.id)
       return {
         ...state,
-        [index]: { ...state[index], ...payload.item }
+        [getIndex(state, payload.id)]: { ...state[index], ...payload.item }
+      }
+    case 'setActiveLabel':
+      const index = getIndex(state, payload.itemId)
+      const updatedItem = { ...state[index] }
+      Object.keys(updatedItem.labels)
+        .map(k => updatedItem.labels[k].active = payload.labelId === k)
+      return {
+        ...state,
+        [index]: updatedItem
       }
 
     default:
@@ -35,6 +48,10 @@ export const setlistActions = {
   }),
   updateItem: payload => ({
     type: 'updateItem',
+    payload
+  }),
+  setActiveLabel: payload => ({
+    type: 'setActiveLabel',
     payload
   })
 }

@@ -11,22 +11,22 @@ const Wrapper = props => (
   flex-direction: column;
   `} {...props} />
 )
-  
+
 export const Setlist = ({ useSetlistContext }) => {
   const { items, addItem, visibility, setVisibility } = useSetlistContext()
   return (
     <Wrapper>
       <AddItemForm onSubmit={addItem} formVisible={visibility.form} />
       {items.sort(sortByIndex).map((item, key) =>
-        <Box {...{ 
-          key, 
-          item, 
+        <Box {...{
+          key,
+          item,
           rich: visibility.preview === item.id,
           hidden: visibility.preview && visibility.preview !== item.id,
-          togglePreview: () => setVisibility({preview: visibility.preview ? null : item.id})
+          togglePreview: () => setVisibility({ preview: visibility.preview ? null : item.id }),
         }} />
       )}
-      <AddFormTrigger onClick={() => setVisibility({form: !visibility.form})} />
+      <AddFormTrigger onClick={() => setVisibility({ form: !visibility.form })} />
     </Wrapper>
   )
 }
