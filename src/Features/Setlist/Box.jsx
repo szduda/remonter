@@ -96,7 +96,7 @@ const PreviewToggle = ({ togglePreview, rich }) => (
     top: 16px;
     z-index: 100;
   `}>
-    {rich ? <Icons.Close /> : <Icons.Search />}
+    {rich ? <Icons.Close /> : <Icons.Unfold />}
   </FAB>
 )
 
@@ -130,7 +130,6 @@ export const Box = ({ item, togglePreview, rich, hidden }) => {
       if (!properLabel) {
         setActiveLabel(null)
       } else if (activeLabelId !== properLabel.id) {
-        console.log(e.target.currentTime, properLabel.title, labels)
         setActiveLabel(properLabel.id)
       }
     }

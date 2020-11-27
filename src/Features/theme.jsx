@@ -5,6 +5,7 @@ import { ReactComponent as SearchIcon } from '../assets/icons/search.svg';
 import { ReactComponent as AddIcon } from '../assets/icons/add.svg';
 import { ReactComponent as CloseIcon } from '../assets/icons/close.svg';
 import { ReactComponent as ExclamationIcon } from '../assets/icons/exclamation.svg';
+import { ReactComponent as UnfoldIcon } from '../assets/icons/unfold.svg';
 
 export const colors = {
   red: '#ED3C19',
@@ -42,6 +43,8 @@ export const Icons = {
   Close: () => <CloseIcon css={css`fill: ${colors.white}`} />,
   Exclamation: ({ color = colors.red, ...rest }) =>
     <ExclamationIcon css={css`fill: ${color}`} {...rest} />,
+  Unfold: ({ color = colors.white, ...rest }) =>
+    <UnfoldIcon css={css`fill: ${color}`} {...rest} />,
 }
 
 export const themeProps = {
@@ -187,10 +190,10 @@ export const Theme = props => (
   `} {...props} />
 )
 
-export const Button = ({filled, ...rest}) => (
+export const Button = ({ filled, ...rest }) => (
   <button css={css`      
     border-radius: 4px;
-    border: ${filled ? 'none' :  `1px solid ${colors.grayLight}`};
+    border: ${filled ? 'none' : `1px solid ${colors.grayLight}`};
     font: 500 12px Consolas;
     background: ${filled ? colors.grayLighter : 'none'};
     outline: none;
