@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.js": "/remonter/static/js/main.5c272245.chunk.js",
+    "main.js.map": "/remonter/static/js/main.5c272245.chunk.js.map",
+    "runtime-main.js": "/remonter/static/js/runtime-main.b02a96ab.js",
+    "runtime-main.js.map": "/remonter/static/js/runtime-main.b02a96ab.js.map",
+    "static/js/2.2568d237.chunk.js": "/remonter/static/js/2.2568d237.chunk.js",
+    "static/js/2.2568d237.chunk.js.map": "/remonter/static/js/2.2568d237.chunk.js.map",
+    "index.html": "/remonter/index.html",
+    "precache-manifest.35071c8f3beec7c3ac20dd9d19e4db44.js": "/remonter/precache-manifest.35071c8f3beec7c3ac20dd9d19e4db44.js",
+    "service-worker.js": "/remonter/service-worker.js",
+    "static/js/2.2568d237.chunk.js.LICENSE.txt": "/remonter/static/js/2.2568d237.chunk.js.LICENSE.txt",
+    "static/media/add.0e3e08bc.svg": "/remonter/static/media/add.0e3e08bc.svg",
+    "static/media/close.b840e171.svg": "/remonter/static/media/close.b840e171.svg",
+    "static/media/exclamation.62d23dd4.svg": "/remonter/static/media/exclamation.62d23dd4.svg",
+    "static/media/hamburger.55f68494.svg": "/remonter/static/media/hamburger.55f68494.svg",
+    "static/media/search.db5d8122.svg": "/remonter/static/media/search.db5d8122.svg",
+    "static/media/unfold.52bd8411.svg": "/remonter/static/media/unfold.52bd8411.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b02a96ab.js",
+    "static/js/2.2568d237.chunk.js",
+    "static/js/main.5c272245.chunk.js"
+  ]
+}
