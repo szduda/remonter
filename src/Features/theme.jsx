@@ -208,9 +208,9 @@ export const Button = ({ filled, ...rest }) => (
   `} {...rest} />
 )
 
-export const Link = props => (
+export const AnchorLink = props => (
   // eslint-disable-next-line
-  <a css={css`
+  <div css={css`
     cursor: pointer;
     display: inline-block;
     color: ${colors.white};

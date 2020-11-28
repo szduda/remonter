@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
 import { Auth } from '../../firebase'
-import { colors, Link } from '../theme'
+import { colors, AnchorLink } from '../theme'
+import { Link } from 'react-router-dom'
 
 const Wrapper = props => (
   <div css={css`
@@ -34,12 +35,26 @@ const Title = () => (
   </h1>
 )
 
+const LoginLink = () => (
+  <Link to="/login">
+    <AnchorLink css={css`margin-left: 32px; border-color: ${colors.greenLight}`}>
+      Log in
+    </AnchorLink>
+  </Link>
+)
+
+const LogoutLink = () => (
+  <AnchorLink css={css`margin-left: 32px`} onClick={() => Auth.signOut()}>
+    Log out
+  </AnchorLink>
+)
+
 export const Header = ({ useHeaderContext }) => {
   const { user } = useHeaderContext()
   return (
     <Wrapper>
       <Title />
-      {user && <Link css={css`margin-left: 32px`} onClick={() => Auth.signOut()}>Logout</Link>}
+      {user ? <LogoutLink /> : <LoginLink />}
     </Wrapper>
   )
 }
