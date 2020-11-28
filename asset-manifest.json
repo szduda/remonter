@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.js": "/remonter/static/js/main.5c272245.chunk.js",
-    "main.js.map": "/remonter/static/js/main.5c272245.chunk.js.map",
+    "main.js": "/remonter/static/js/main.47ad4989.chunk.js",
+    "main.js.map": "/remonter/static/js/main.47ad4989.chunk.js.map",
     "runtime-main.js": "/remonter/static/js/runtime-main.b02a96ab.js",
     "runtime-main.js.map": "/remonter/static/js/runtime-main.b02a96ab.js.map",
-    "static/js/2.2568d237.chunk.js": "/remonter/static/js/2.2568d237.chunk.js",
-    "static/js/2.2568d237.chunk.js.map": "/remonter/static/js/2.2568d237.chunk.js.map",
+    "static/js/2.7883135c.chunk.js": "/remonter/static/js/2.7883135c.chunk.js",
+    "static/js/2.7883135c.chunk.js.map": "/remonter/static/js/2.7883135c.chunk.js.map",
     "index.html": "/remonter/index.html",
-    "precache-manifest.35071c8f3beec7c3ac20dd9d19e4db44.js": "/remonter/precache-manifest.35071c8f3beec7c3ac20dd9d19e4db44.js",
+    "precache-manifest.f337fd66337679c8d0e021095d787e1c.js": "/remonter/precache-manifest.f337fd66337679c8d0e021095d787e1c.js",
     "service-worker.js": "/remonter/service-worker.js",
-    "static/js/2.2568d237.chunk.js.LICENSE.txt": "/remonter/static/js/2.2568d237.chunk.js.LICENSE.txt",
+    "static/js/2.7883135c.chunk.js.LICENSE.txt": "/remonter/static/js/2.7883135c.chunk.js.LICENSE.txt",
     "static/media/add.0e3e08bc.svg": "/remonter/static/media/add.0e3e08bc.svg",
     "static/media/close.b840e171.svg": "/remonter/static/media/close.b840e171.svg",
     "static/media/exclamation.62d23dd4.svg": "/remonter/static/media/exclamation.62d23dd4.svg",
@@ -19,7 +19,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.b02a96ab.js",
-    "static/js/2.2568d237.chunk.js",
-    "static/js/main.5c272245.chunk.js"
+    "static/js/2.7883135c.chunk.js",
+    "static/js/main.47ad4989.chunk.js"
   ]
 }
