@@ -211,6 +211,7 @@ export const Button = ({ filled, ...rest }) => (
 export const Link = props => (
   // eslint-disable-next-line
   <a css={css`
+    cursor: pointer;
     display: inline-block;
     color: ${colors.white};
     transition: transform 100ms ease-out;
@@ -226,6 +227,7 @@ export const Link = props => (
 
 export const FAB = ({ top, ...rest }) => (
   <Button css={css`
+    cursor: pointer;
     z-index: 1000;
     border-radius: 50%;
     position: absolute;

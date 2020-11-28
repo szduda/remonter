@@ -7,7 +7,8 @@ export const useSetlist = ({ DataService }) => {
   const useSetlistContext = () => {
     const { state, actions } = useStore()
     const { setItems } = actions.setlist
-    const { setlist } = state
+    const { setlist, user } = state
+    const admin = user?.role === 'admin'
     const [visibility, setVisibility] = useState({
       form: false,
       preview: null
@@ -30,7 +31,7 @@ export const useSetlist = ({ DataService }) => {
 
 
     const items = Object.keys(setlist).map(key => setlist[key]);
-    return { items, addItem, visibility, setVisibility }
+    return { items, addItem, visibility, setVisibility, admin }
   }
 
   return () => <Setlist {...{ useSetlistContext }} />

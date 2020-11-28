@@ -4,7 +4,8 @@ then run the app with `yarn start`.
 
 ## TODO
 
-- [ ] Authentication (viewer, editor, admin)
+- [x] Authentication (admin)
+- [ ] user roles (viewer, editor, admin)
 - [ ] Hosting
 
 Viewer:

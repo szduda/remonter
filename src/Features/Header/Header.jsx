@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
-import { colors } from '../theme'
+import { Auth } from '../../firebase'
+import { colors, Link } from '../theme'
 
 const Wrapper = props => (
   <div css={css`
@@ -13,9 +14,9 @@ const Wrapper = props => (
 
 const Title = () => (
   <h1 css={css`
-    display: flex;
-    flex-direction:
-    column; margin: 0;
+    display: inline-flex;
+    flex-direction: column; 
+    margin: 0;
     padding: 0;
     line-height: 1;
   `}>
@@ -33,10 +34,12 @@ const Title = () => (
   </h1>
 )
 
-export const Header = () => {
+export const Header = ({ useHeaderContext }) => {
+  const { user } = useHeaderContext()
   return (
     <Wrapper>
       <Title />
+      {user && <Link css={css`margin-left: 32px`} onClick={() => Auth.signOut()}>Logout</Link>}
     </Wrapper>
   )
 }

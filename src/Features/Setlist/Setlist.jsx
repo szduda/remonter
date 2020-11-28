@@ -3,6 +3,7 @@ import { jsx, css, } from '@emotion/core'
 import { Box } from './Box'
 import { sortByIndex } from '../../appHelper'
 import { AddItemForm, AddFormTrigger } from './AddItem'
+import { useStore } from '../../StateManager/Store'
 
 const Wrapper = props => (
   <div css={css`
@@ -13,7 +14,7 @@ const Wrapper = props => (
 )
 
 export const Setlist = ({ useSetlistContext }) => {
-  const { items, addItem, visibility, setVisibility } = useSetlistContext()
+  const { items, addItem, visibility, setVisibility, admin } = useSetlistContext()
   return (
     <Wrapper>
       <AddItemForm onSubmit={addItem} formVisible={visibility.form} />
@@ -26,7 +27,7 @@ export const Setlist = ({ useSetlistContext }) => {
           togglePreview: () => setVisibility({ preview: visibility.preview ? null : item.id }),
         }} />
       )}
-      <AddFormTrigger onClick={() => setVisibility({ form: !visibility.form })} />
+      {admin && <AddFormTrigger onClick={() => setVisibility({ form: !visibility.form })} />}
     </Wrapper>
   )
 }
