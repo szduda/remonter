@@ -6,6 +6,7 @@ const getIndex = (obj, id) => Object.keys(obj)
 
 export const setlistReducer = (state, action) => {
   const { payload, type } = action
+  let index = -1
 
   switch (type) {
     case 'addItem':
@@ -18,12 +19,13 @@ export const setlistReducer = (state, action) => {
         ...payload.items
       }
     case 'updateItem':
+      index = getIndex(state, payload.id)
       return {
         ...state,
-        [getIndex(state, payload.id)]: { ...state[index], ...payload.item }
+        [index]: { ...state[index], ...payload.item }
       }
     case 'setActiveLabel':
-      const index = getIndex(state, payload.itemId)
+      index = getIndex(state, payload.itemId)
       const updatedItem = { ...state[index] }
       Object.keys(updatedItem.labels)
         .map(k => updatedItem.labels[k].active = payload.labelId === k)

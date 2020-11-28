@@ -3,7 +3,6 @@ import { jsx, css, } from '@emotion/core'
 import { Box } from './Box'
 import { sortByIndex } from '../../appHelper'
 import { AddItemForm, AddFormTrigger } from './AddItem'
-import { useStore } from '../../StateManager/Store'
 
 const Wrapper = props => (
   <div css={css`

@@ -6,7 +6,7 @@ then run the app with `yarn start`.
 
 - [x] Authentication (admin)
 - [ ] user roles (viewer, editor, admin)
-- [ ] Hosting
+- [x] Hosting
 
 Viewer:
 - [x] Time labels with description
