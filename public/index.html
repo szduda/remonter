@@ -17,9 +17,15 @@
         url(%PUBLIC_URL%/consolas.ttf) format('truetype');
     }
 
+    html {
+      height: -webkit-fill-available;
+    }
+
     body {
       margin: 0;
       background: #F1FAEA;
+      min-height: 100vh;
+      min-height: -webkit-fill-available;
     }
   </style>
 </head>

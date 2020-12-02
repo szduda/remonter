@@ -85,7 +85,7 @@ export const AddItemForm = ({ onSubmit, formVisible }) => {
             wide
             label="Nazwa pliku"
             value={item.fileName}
-            onChange={event => setItem({ ...item, fileName: Number(event.target.value) })} />
+            onChange={event => setItem({ ...item, fileName: event.target.value })} />
         </Flex.Col>
         <div css={css`display: flex; justify-content: flex-end;`}>
           <Icons.Exclamation

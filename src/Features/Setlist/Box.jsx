@@ -18,7 +18,7 @@ const Wrapper = ({ collapsed, fullHeight, ...rest }) => {
       height: ${collapsed ? 0 : fullHeight ? 'calc(100vh - 84px)' : '232px;'};
       overflow: hidden;
       transition: all 400ms ease-out;
-      opacity: ${collapsed ? 0 : 1}
+      opacity: ${collapsed ? 0 : 1};
     `} {...rest} />
   )
 }
