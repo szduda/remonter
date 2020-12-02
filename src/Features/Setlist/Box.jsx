@@ -19,6 +19,10 @@ const Wrapper = ({ collapsed, fullHeight, ...rest }) => {
       overflow: hidden;
       transition: all 400ms ease-out;
       opacity: ${collapsed ? 0 : 1};
+
+      > * {
+        transition: all 400ms ease-in 100ms;
+      }
     `} {...rest} />
   )
 }
@@ -55,7 +59,7 @@ const playAtTime = ({ time, audioTagId }) => {
 
 const Description = ({ activeLabel, description, rich }) => (
   <p css={css`
-    color: ${colors.grayLighter} !important;
+    color: ${rich ? colors.white : colors.grayLighter} !important;
     padding: 0 48px 16px 0;
     height: ${rich ? 'calc(100% - 172px)' : '24px'};
     ${rich ? 'overflow-y: auto' : 'overflow: hidden'};
@@ -66,13 +70,13 @@ const Description = ({ activeLabel, description, rich }) => (
   </p>
 )
 
-const Title = ({ text, index }) => (
+const Title = ({ text, index, rich }) => (
   <h2 css={css`
     margin: 0;
     padding-right: 56px;
     font-size: 32px;
     line-height: 48px;
-    color: ${colors.white};
+    color: ${rich ? colors.grayLighter : colors.white};
     font-variant: all-small-caps;
     height: 48px;
     text-overflow: ellipsis;
@@ -142,7 +146,7 @@ export const Box = ({ item, togglePreview, rich, hidden }) => {
 
   return (
     <Wrapper collapsed={hidden} fullHeight={rich}>
-      <Title text={title} index={index} />
+      <Title {...{ index, rich, text: title }} />
       <Description {...{ activeLabel, description, rich }} />
       <Labels {...{ onLabelClick, activeLabelId, labels }} />
       <AudioPanel {...{ audioTagId, fileName }} />
