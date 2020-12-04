@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "094a19daa6a4696b715b335d9d3c1cdb",
+    "revision": "843b1a6048f5498ba1fb3f55372bf616",
     "url": "/remonter/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/remonter/static/js/2.46e403b3.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "81c709f466c6bfba04b8",
-    "url": "/remonter/static/js/main.52e52928.chunk.js"
+    "revision": "83a6c479417c14ada010",
+    "url": "/remonter/static/js/main.e26c1d44.chunk.js"
   },
   {
     "revision": "5ceef785d0eee8820caa",
