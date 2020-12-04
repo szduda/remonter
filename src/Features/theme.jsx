@@ -76,12 +76,14 @@ export const BottomContent = ({ visible, onClose, children, ...props }) => (
   </section>
 )
 
-const Row = ({ align, valign, wide, ...props }) => (
+const Row = ({ align, valign, wide, wrap, grow, ...props }) => (
   <div css={css`
     display: flex;
     justify-content: ${align || 'space-between'};
     align-items: ${valign || 'flex-start'};
+    ${grow && `flex-grow: ${grow};`}
     width: ${wide ? '100%' : 'auto'};
+    ${wrap && 'flex-wrap: wrap;'}
     >:last-of-type {
       margin-right: 0 !important;
     }

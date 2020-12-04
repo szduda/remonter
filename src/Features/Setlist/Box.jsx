@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react'
 import { jsx, css, } from '@emotion/core'
 import { colors, Button, Flex, FAB, Icons } from '../theme'
 
-const Wrapper = ({ collapsed, fullHeight, ...rest }) => {
+const Wrapper = ({ collapsed, fullHeight, rich, ...rest }) => {
   return (
-    <div css={css`
+    <Flex.Col valign="space-between" css={css`
       background: ${colors.grayLight};
       color: ${colors.black};
       padding: ${collapsed ? '0 16px' : '16px'};
@@ -21,20 +21,23 @@ const Wrapper = ({ collapsed, fullHeight, ...rest }) => {
       opacity: ${collapsed ? 0 : 1};
 
       > * {
-        transition: all 400ms ease-in 100ms;
+        ${fullHeight ? 'transition: all 800ms cubic-bezier(0.42,0,0.58,1) 200ms;'
+        : 'transition: all 400ms cubic-bezier(.55,.13,.7,1);'}
       }
     `} {...rest} />
   )
 }
 
-const Labels = ({ onLabelClick, labels, activeLabelId }) => (
-  <Flex.Row align="flex-start">
+const Labels = ({ onLabelClick, labels, activeLabelId, rich }) => (
+  <Flex.Row align="flex-start" wrap={rich} css={css`overflow-x: auto; overflow-y: hidden;`}>
     {labels.map((l, key) =>
       <Button
         filled
         key={key}
         css={css`
-          margin-right: 8px;
+          margin: 0 8px 8px 0;
+          flex-wrap: nowrap;
+          flex-shrink: 0;
           ${activeLabelId === l.id && `background: ${colors.yellow};`}
         `}
         onClick={() => onLabelClick(l)}
@@ -61,8 +64,10 @@ const Description = ({ activeLabel, description, rich }) => (
   <p css={css`
     color: ${rich ? colors.white : colors.grayLighter} !important;
     padding: 0 48px 16px 0;
-    height: ${rich ? 'calc(100% - 172px)' : '24px'};
+    width: calc(100% - 48px);
     ${rich ? 'overflow-y: auto' : 'overflow: hidden'};
+    ${rich ? 'min-height: 60%' : 'min-height: 24px'};
+    ${rich && 'flex-grow: 5;'}
     ${!rich && 'text-overflow: ellipsis;'}
     ${!rich && 'white-space: nowrap'};
   `}>
@@ -73,7 +78,7 @@ const Description = ({ activeLabel, description, rich }) => (
 const Title = ({ text, index, rich }) => (
   <h2 css={css`
     margin: 0;
-    padding-right: 56px;
+    width: calc(100% - 56px);
     font-size: 32px;
     line-height: 48px;
     color: ${rich ? colors.grayLighter : colors.white};
@@ -110,7 +115,7 @@ const AudioPanel = ({ audioTagId, fileName }) => (
     id={audioTagId}
     css={css`
       width: 100%;
-      margin-top: 16px;
+      margin-top: 8px;
   `}>
     <source src={`audio/${fileName}`} type="audio/mpeg" />
   </audio>
@@ -148,7 +153,7 @@ export const Box = ({ item, togglePreview, rich, hidden }) => {
     <Wrapper collapsed={hidden} fullHeight={rich}>
       <Title {...{ index, rich, text: title }} />
       <Description {...{ activeLabel, description, rich }} />
-      <Labels {...{ onLabelClick, activeLabelId, labels }} />
+      <Labels {...{ onLabelClick, activeLabelId, labels, rich }} />
       <AudioPanel {...{ audioTagId, fileName }} />
       <PreviewToggle {...{ togglePreview, rich }} />
     </Wrapper>
