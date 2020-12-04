@@ -8,15 +8,15 @@ const Wrapper = ({ collapsed, fullHeight, rich, ...rest }) => {
     <Flex.Col valign="space-between" css={css`
       background: ${colors.grayLight};
       color: ${colors.black};
-      padding: ${collapsed ? '0 16px' : '16px'};
+      padding: ${collapsed ? '0 16px' : '0px 16px 8px'};
       margin: ${collapsed || fullHeight ? 0 : '0 0 8px 0'};
       border-radius: 4px;
       font-size: 12px;
       line-height: 14px;
       box-shadow: 0 2px 4px 0 ${colors.grayDark}44;
       position: relative;
-      min-height: ${collapsed ? 0 : fullHeight ? 'calc(100vh - 84px)' : '232px;'};
-      max-height: ${collapsed ? 0 : fullHeight ? 'unset' : '232px;'};
+      min-height: ${collapsed ? 0 : fullHeight ? 'calc(100vh - 84px)' : '208px;'};
+      max-height: ${collapsed ? 0 : fullHeight ? 'unset' : '268px;'};
       overflow: hidden;
       transition: all 400ms ease-out;
       opacity: ${collapsed ? 0 : 1};
@@ -83,16 +83,13 @@ const Description = ({ activeLabel, description, rich }) => {
 
 const Title = ({ text, index, rich }) => (
   <h2 css={css`
-    margin: 0;
-    width: calc(100% - 56px);
-    font-size: 32px;
-    line-height: 48px;
+    margin: 8px 0;
+    width: calc(100% - 48px);
+    font-size: ${rich ? 24 : 32}px;
+    line-height: 1;
+    max-height: 96px;
     color: ${rich ? colors.grayLighter : colors.white};
     font-variant: all-small-caps;
-    height: 48px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
   `}>
     <span css={css`width: 16px; margin-right: 8px;`}>{index}.</span>
     {text}
@@ -107,8 +104,8 @@ const PreviewToggle = ({ togglePreview, rich }) => (
     box-shadow: none; 
     background: ${colors.grayLighter}; 
     border: none; 
-    right: 16px; 
-    top: 16px;
+    right: 8px; 
+    top: 8px;
     z-index: 100;
   `}>
     {rich ? <Icons.Close /> : <Icons.Unfold />}
