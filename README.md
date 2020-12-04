@@ -11,6 +11,7 @@ then run the app with `yarn start`.
 Viewer:
 - [x] Time labels with description
 - [x] Sync audio panel, time labels and description
+- [x] Reduce number of audio panels visible
 
 Editor:
 - [ ] Modify time labels

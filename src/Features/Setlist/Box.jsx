@@ -8,14 +8,14 @@ const Wrapper = ({ collapsed, fullHeight, rich, ...rest }) => {
     <Flex.Col valign="space-between" css={css`
       background: ${colors.grayLight};
       color: ${colors.black};
-      padding: ${collapsed ? '0 16px' : '0px 16px 8px'};
+      padding: ${collapsed ? '0 16px' : '0px 16px 0'};
       margin: ${collapsed || fullHeight ? 0 : '0 0 8px 0'};
       border-radius: 4px;
       font-size: 12px;
       line-height: 14px;
       box-shadow: 0 2px 4px 0 ${colors.grayDark}44;
       position: relative;
-      min-height: ${collapsed ? 0 : fullHeight ? 'calc(100vh - 84px)' : '208px;'};
+      min-height: ${collapsed ? 0 : fullHeight ? 'calc(100vh - 84px)' : '134px;'};
       max-height: ${collapsed ? 0 : fullHeight ? 'unset' : '268px;'};
       overflow: hidden;
       transition: all 400ms ease-out;
@@ -31,7 +31,7 @@ const Wrapper = ({ collapsed, fullHeight, rich, ...rest }) => {
 }
 
 const Labels = ({ onLabelClick, labels, activeLabelId, rich }) => (
-  <Flex.Row align="flex-start" wrap={rich} css={css`overflow-x: auto; overflow-y: hidden;`}>
+  <Flex.Row align="flex-start" wrap css={css`overflow-x: auto; overflow-y: hidden;`}>
     {labels.map((l, key) =>
       <Button
         filled
@@ -112,13 +112,14 @@ const PreviewToggle = ({ togglePreview, rich }) => (
   </FAB>
 )
 
-const AudioPanel = ({ audioTagId, fileName }) => (
+const AudioPanel = ({ audioTagId, fileName, rich }) => (
   <audio
     controls
     id={audioTagId}
     css={css`
+      height: ${rich ? 54 : 0};
       width: 100%;
-      margin-top: 8px;
+      ${rich && 'margin: 8px 0;'}
   `}>
     <source src={`audio/${fileName}`} type="audio/mpeg" />
   </audio>
@@ -150,14 +151,17 @@ export const Box = ({ item, togglePreview, rich, hidden }) => {
     return () => myAudio.removeEventListener('timeupdate', updateLabel)
   }, [activeLabelId])
 
-  const onLabelClick = label => playAtTime({ time: label.time, audioTagId })
+  const onLabelClick = label => {
+    if (!rich) togglePreview()
+    playAtTime({ time: label.time, audioTagId })
+  }
 
   return (
     <Wrapper collapsed={hidden} fullHeight={rich}>
       <Title {...{ index, rich, text: title }} />
       <Description {...{ activeLabel, description, rich }} />
       <Labels {...{ onLabelClick, activeLabelId, labels, rich }} />
-      <AudioPanel {...{ audioTagId, fileName }} />
+      <AudioPanel {...{ audioTagId, fileName, rich }} />
       <PreviewToggle {...{ togglePreview, rich }} />
     </Wrapper>
   )
