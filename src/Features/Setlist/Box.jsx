@@ -21,8 +21,9 @@ const Wrapper = ({ collapsed, fullHeight, rich, ...rest }) => {
       opacity: ${collapsed ? 0 : 1};
 
       > * {
-        ${fullHeight ? 'transition: all 800ms cubic-bezier(0.42,0,0.58,1) 200ms;'
+        ${fullHeight ? 'transition: all 400ms cubic-bezier(0.42,0,0.58,1) 300ms;'
         : 'transition: all 400ms cubic-bezier(.55,.13,.7,1);'}
+        flex-shrink: 0;
       }
     `} {...rest} />
   )
@@ -70,7 +71,7 @@ const Description = ({ activeLabel, description, rich }) => {
     width: calc(100% - 48px);
     ${rich ? 'overflow-y: auto' : 'overflow: hidden'};
     ${rich ? 'min-height: 60%' : 'min-height: 24px'};
-    ${rich && 'flex-grow: 5;'}
+    ${rich && 'flex-grow: 1;'}
     ${!rich && 'text-overflow: ellipsis;'}
     white-space: ${rich ? 'pre-line' : 'nowrap'};
   `}>
