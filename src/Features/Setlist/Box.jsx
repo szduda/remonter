@@ -61,7 +61,7 @@ const playAtTime = ({ time, audioTagId }) => {
 }
 
 const Description = ({ activeLabel, description, rich }) => {
-  const text = (activeLabel ? activeLabel.description : description)
+  const text = ((activeLabel ? activeLabel.description : description) || '')
     .split('<br />').map((p, key) => <F {...{ key }}>{p} {rich && <br />}</F>)
   return (
     <p css={css`
