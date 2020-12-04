@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Fragment as F } from 'react'
 import { jsx, css, } from '@emotion/core'
 import { colors, Button, Flex, FAB, Icons } from '../theme'
 
@@ -60,8 +60,11 @@ const playAtTime = ({ time, audioTagId }) => {
   myAudio.load();
 }
 
-const Description = ({ activeLabel, description, rich }) => (
-  <p css={css`
+const Description = ({ activeLabel, description, rich }) => {
+  const text = (activeLabel ? activeLabel.description : description)
+    .split('<br />').map((p, key) => <F {...{ key }}>{p} {rich && <br />}</F>)
+  return (
+    <p css={css`
     color: ${rich ? colors.white : colors.grayLighter} !important;
     padding: 0 48px 16px 0;
     width: calc(100% - 48px);
@@ -69,11 +72,12 @@ const Description = ({ activeLabel, description, rich }) => (
     ${rich ? 'min-height: 60%' : 'min-height: 24px'};
     ${rich && 'flex-grow: 5;'}
     ${!rich && 'text-overflow: ellipsis;'}
-    ${!rich && 'white-space: nowrap'};
+    white-space: ${rich ? 'pre-line' : 'nowrap'};
   `}>
-    {activeLabel ? activeLabel.description : description}
-  </p>
-)
+      {text}
+    </p>
+  )
+}
 
 const Title = ({ text, index, rich }) => (
   <h2 css={css`
