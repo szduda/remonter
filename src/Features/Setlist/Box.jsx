@@ -3,12 +3,12 @@ import { useState, useEffect, Fragment as F } from 'react'
 import { jsx, css, } from '@emotion/core'
 import { colors, Button, Flex, FAB, Icons } from '../theme'
 
-const Wrapper = ({ collapsed, fullHeight, rich, ...rest }) => {
+const Wrapper = ({ collapsed, fullHeight, ...rest }) => {
   return (
     <Flex.Col valign="space-between" css={css`
       background: ${colors.grayLight};
       color: ${colors.black};
-      padding: ${collapsed ? '0 16px' : '0px 16px 0'};
+      padding: ${(collapsed || fullHeight) ? '0 16px' : '0 16px 8px'};
       margin: ${collapsed || fullHeight ? 0 : '0 0 8px 0'};
       border-radius: 4px;
       font-size: 12px;
