@@ -15,7 +15,8 @@ const Wrapper = ({ collapsed, fullHeight, rich, ...rest }) => {
       line-height: 14px;
       box-shadow: 0 2px 4px 0 ${colors.grayDark}44;
       position: relative;
-      height: ${collapsed ? 0 : fullHeight ? 'calc(100vh - 84px)' : '232px;'};
+      min-height: ${collapsed ? 0 : fullHeight ? 'calc(100vh - 84px)' : '232px;'};
+      max-height: ${collapsed ? 0 : fullHeight ? 'unset' : '232px;'};
       overflow: hidden;
       transition: all 400ms ease-out;
       opacity: ${collapsed ? 0 : 1};
