@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useState, useEffect, Fragment as F } from 'react'
+import { useState, useEffect, useMemo, Fragment as F, useCallback } from 'react'
 import { jsx, css, } from '@emotion/core'
 import { colors, Button, Flex, FAB, Icons } from '../theme'
 
@@ -121,35 +121,44 @@ const AudioPanel = ({ audioTagId, fileName, rich }) => (
       width: 100%;
       ${rich && 'margin: 8px 0;'}
   `}>
-    <source src={`audio/${fileName}`} type="audio/mpeg" />
+    <source src={fileName} type="audio/mpeg" />
   </audio>
 )
 
 export const Box = ({ item, togglePreview, rich, hidden }) => {
   const { title, description, index, fileName } = item
   const audioTagId = `audio-${item.id}`
-  const labels = Object
-    .keys(item.labels || {})
-    .map(id => ({ ...item.labels[id], id }))
-    .sort((l1, l2) => l1.time - l2.time)
-  const [activeLabelId, setActiveLabel] = useState()
-  const activeLabel = labels.find(l => l.id === activeLabelId)
+  const labels = useMemo(
+    () => Object
+      .keys(item.labels || {})
+      .map(id => ({ ...item.labels[id], id }))
+      .sort((l1, l2) => l1.time - l2.time),
+    [item.labels]
+  )
 
-  useEffect(() => {
-    const myAudio = document.getElementById(audioTagId)
-    const labelsFromEnd = [...labels].reverse()
-    const updateLabel = e => {
+  const [activeLabelId, setActiveLabel] = useState()
+  const activeLabel = useMemo(
+    () => labels.find(l => l.id === activeLabelId),
+    [activeLabelId, labels]
+  )
+
+  const updateLabel = useCallback(
+    e => {
+      const labelsFromEnd = [...labels].reverse()
       const properLabel = labelsFromEnd.find(l => l.time <= e.target.currentTime)
       if (!properLabel) {
         setActiveLabel(null)
       } else if (activeLabelId !== properLabel.id) {
         setActiveLabel(properLabel.id)
       }
-    }
+    },
+    [labels])
 
+  useEffect(() => {
+    const myAudio = document.getElementById(audioTagId)
     myAudio.addEventListener('timeupdate', updateLabel)
     return () => myAudio.removeEventListener('timeupdate', updateLabel)
-  }, [activeLabelId])
+  }, [audioTagId, updateLabel])
 
   const onLabelClick = label => {
     if (!rich) togglePreview()
