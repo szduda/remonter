@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useStore } from '../../StateManager/Store'
 import { Setlist } from './Setlist'
 import { getNextId } from '../../appHelper'
@@ -13,11 +13,11 @@ export const useSetlist = ({ DataService }) => {
       preview: null
     })
 
-    const fetchItems = useCallback(DataService.fetchItems, [])
-    const setItems = useCallback(actions.setlist.setItems, [])
+    const fetchItems = useRef(DataService.fetchItems)
+    const setItems = useRef(actions.setlist.setItems)
 
     useEffect(() => {
-      const asyncEffect = async () => setItems({ items: await fetchItems() })
+      const asyncEffect = async () => setItems.current({ items: await fetchItems.current() })
       asyncEffect()
     }, [fetchItems, setItems])
 

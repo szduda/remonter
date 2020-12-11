@@ -1,7 +1,8 @@
 /** @jsx jsx */
-import { useState, useEffect, useMemo, Fragment as F, useCallback } from 'react'
+import { useMemo, Fragment as F } from 'react'
 import { jsx, css, } from '@emotion/core'
 import { colors, Button, Flex, FAB, Icons } from '../theme'
+import { useActiveLabel } from './useActiveLabel'
 
 const Wrapper = ({ collapsed, fullHeight, ...rest }) => {
   return (
@@ -30,37 +31,36 @@ const Wrapper = ({ collapsed, fullHeight, ...rest }) => {
   )
 }
 
-const Labels = ({ onLabelClick, labels, activeLabelId, rich }) => (
-  <Flex.Row align="flex-start" wrap css={css`overflow-x: auto; overflow-y: hidden;`}>
-    {labels.map((l, key) =>
-      <Button
-        filled
-        key={key}
-        css={css`
-          margin: 0 8px 8px 0;
-          flex-wrap: nowrap;
-          flex-shrink: 0;
-          ${activeLabelId === l.id && `background: ${colors.yellow};`}
-        `}
-        onClick={() => onLabelClick(l)}
-      >
-        {l.title}
-      </Button>
-    )}
-  </Flex.Row>
+const PreviewToggle = ({ togglePreview, rich }) => (
+  <FAB
+    top
+    onClick={togglePreview}
+    css={css`
+    box-shadow: none; 
+    background: ${colors.grayLighter}; 
+    border: none; 
+    right: 8px; 
+    top: 8px;
+    z-index: 100;
+  `}>
+    {rich ? <Icons.Close /> : <Icons.Unfold />}
+  </FAB>
 )
 
-const playAtTime = ({ time, audioTagId }) => {
-  const myAudio = document.getElementById(audioTagId);
-  const setTime = () => {
-    myAudio.currentTime = time
-    myAudio.play()
-    myAudio.removeEventListener('canplaythrough', setTime)
-  }
-
-  myAudio.addEventListener('canplaythrough', setTime);
-  myAudio.load();
-}
+const Title = ({ text, index, rich }) => (
+  <h2 css={css`
+    margin: 8px 0;
+    width: calc(100% - 48px);
+    font-size: ${rich ? 24 : 32}px;
+    line-height: 1;
+    max-height: 96px;
+    color: ${rich ? colors.grayLighter : colors.white};
+    font-variant: all-small-caps;
+  `}>
+    <span css={css`width: 16px; margin-right: 8px;`}>{index}.</span>
+    {text}
+  </h2>
+)
 
 const Description = ({ activeLabel, description, rich }) => {
   const text = ((activeLabel ? activeLabel.description : description) || '')
@@ -81,39 +81,29 @@ const Description = ({ activeLabel, description, rich }) => {
   )
 }
 
-const Title = ({ text, index, rich }) => (
-  <h2 css={css`
-    margin: 8px 0;
-    width: calc(100% - 48px);
-    font-size: ${rich ? 24 : 32}px;
-    line-height: 1;
-    max-height: 96px;
-    color: ${rich ? colors.grayLighter : colors.white};
-    font-variant: all-small-caps;
-  `}>
-    <span css={css`width: 16px; margin-right: 8px;`}>{index}.</span>
-    {text}
-  </h2>
-)
-
-const PreviewToggle = ({ togglePreview, rich }) => (
-  <FAB
-    top
-    onClick={togglePreview}
-    css={css`
-    box-shadow: none; 
-    background: ${colors.grayLighter}; 
-    border: none; 
-    right: 8px; 
-    top: 8px;
-    z-index: 100;
-  `}>
-    {rich ? <Icons.Close /> : <Icons.Unfold />}
-  </FAB>
+const Labels = ({ onLabelClick, labels, activeLabel, rich }) => (
+  <Flex.Row align="flex-start" wrap css={css`overflow-x: auto; overflow-y: hidden;`}>
+    {labels.map((l, key) =>
+      <Button
+        filled
+        key={key}
+        css={css`
+          margin: 0 8px 8px 0;
+          flex-wrap: nowrap;
+          flex-shrink: 0;
+          ${activeLabel?.id === l.id && `background: ${colors.yellow};`}
+        `}
+        onClick={() => onLabelClick(l)}
+      >
+        {l.title}
+      </Button>
+    )}
+  </Flex.Row>
 )
 
 const AudioPanel = ({ audioTagId, fileName, rich }) => (
   <audio
+    preload="auto"
     controls
     id={audioTagId}
     css={css`
@@ -125,40 +115,28 @@ const AudioPanel = ({ audioTagId, fileName, rich }) => (
   </audio>
 )
 
+const playAtTime = ({ time, audioTagId }) => {
+  const myAudio = document.getElementById(audioTagId);
+  const setTime = () => {
+    myAudio.play()
+    myAudio.removeEventListener('canplay', setTime)
+  }
+
+  myAudio.currentTime = time
+  myAudio.addEventListener('canplay', setTime);
+}
+
+const useLabels = labels => useMemo(() => Object
+  .keys(labels || {})
+  .map(id => ({ ...labels[id], id }))
+  .sort((l1, l2) => l1.time - l2.time)
+  , [labels])
+
 export const Box = ({ item, togglePreview, rich, hidden }) => {
   const { title, description, index, fileName } = item
   const audioTagId = `audio-${item.id}`
-  const labels = useMemo(
-    () => Object
-      .keys(item.labels || {})
-      .map(id => ({ ...item.labels[id], id }))
-      .sort((l1, l2) => l1.time - l2.time),
-    [item.labels]
-  )
-
-  const [activeLabelId, setActiveLabel] = useState()
-  const activeLabel = useMemo(
-    () => labels.find(l => l.id === activeLabelId),
-    [activeLabelId, labels]
-  )
-
-  const updateLabel = useCallback(
-    e => {
-      const labelsFromEnd = [...labels].reverse()
-      const properLabel = labelsFromEnd.find(l => l.time <= e.target.currentTime)
-      if (!properLabel) {
-        setActiveLabel(null)
-      } else if (activeLabelId !== properLabel.id) {
-        setActiveLabel(properLabel.id)
-      }
-    },
-    [labels])
-
-  useEffect(() => {
-    const myAudio = document.getElementById(audioTagId)
-    myAudio.addEventListener('timeupdate', updateLabel)
-    return () => myAudio.removeEventListener('timeupdate', updateLabel)
-  }, [audioTagId, updateLabel])
+  const labels = useLabels(item.labels)
+  const activeLabel = useActiveLabel({ labels, audioTagId })
 
   const onLabelClick = label => {
     if (!rich) togglePreview()
@@ -169,7 +147,7 @@ export const Box = ({ item, togglePreview, rich, hidden }) => {
     <Wrapper collapsed={hidden} fullHeight={rich}>
       <Title {...{ index, rich, text: title }} />
       <Description {...{ activeLabel, description, rich }} />
-      <Labels {...{ onLabelClick, activeLabelId, labels, rich }} />
+      <Labels {...{ onLabelClick, activeLabel, labels, rich }} />
       <AudioPanel {...{ audioTagId, fileName, rich }} />
       <PreviewToggle {...{ togglePreview, rich }} />
     </Wrapper>

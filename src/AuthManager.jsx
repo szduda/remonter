@@ -1,20 +1,20 @@
-import { useMemo, useEffect, useCallback } from 'react';
+import { useEffect, useRef } from 'react';
 import { useStore } from './StateManager/Store'
 import { Auth } from './firebase'
 
 const useAuth = ({ Auth }) => {
   const { state, actions } = useStore()
-  const auth = useMemo(() => Auth, [Auth])
-  const user = useMemo(() => state.user, [state.user])
-  const setUser = useCallback(actions.user.setUser, [])
+  const auth = useRef(Auth)
+  const user = useRef(state.user)
+  const setUser = useRef(actions.user.setUser)
   useEffect(() => {
-    const onAuthStateChange = setUser =>
-      auth.onAuthStateChanged(async () => {
+    const onAuthStateChange = () =>
+      auth.current.onAuthStateChanged(async () => {
         const currentToken = await auth.currentUser?.getIdToken() ?? false
         if (!currentToken) {
-          setUser(null)
-        } else if (currentToken !== user.token) {
-          setUser({
+          setUser.current(null)
+        } else if (currentToken !== user.current.token) {
+          setUser.current({
             user: {
               role: 'admin',
               token: currentToken
@@ -22,7 +22,7 @@ const useAuth = ({ Auth }) => {
           })
         }
       })
-    const unsubscribe = onAuthStateChange(setUser);
+    const unsubscribe = onAuthStateChange();
     return unsubscribe;
   }, [auth, user, setUser]);
 }
