@@ -45,7 +45,13 @@ export const AddItemForm = ({ onSubmit, formVisible }) => {
 
   const submit = e => {
     e.preventDefault();
-    return validate(item, setValid) && onSubmit(item)
+    const itemDTO = { ...item }
+    const driveFileMatches = /drive\.google\.com\/file\/d\/(.+)\//g
+      .exec(itemDTO.fileName);
+    if (driveFileMatches.length > 1) {
+      itemDTO.fileName = `https://drive.google.com/uc?export=download&id=${driveFileMatches[1]}`
+    }
+    return validate(itemDTO, setValid) && onSubmit(itemDTO)
   }
 
   return (
