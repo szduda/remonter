@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/remonter/static/js/main.a08701e6.chunk.js",
-    "main.js.map": "/remonter/static/js/main.a08701e6.chunk.js.map",
+    "main.js": "/remonter/static/js/main.c1ecb40a.chunk.js",
+    "main.js.map": "/remonter/static/js/main.c1ecb40a.chunk.js.map",
     "runtime-main.js": "/remonter/static/js/runtime-main.b02a96ab.js",
     "runtime-main.js.map": "/remonter/static/js/runtime-main.b02a96ab.js.map",
     "static/js/2.46e403b3.chunk.js": "/remonter/static/js/2.46e403b3.chunk.js",
     "static/js/2.46e403b3.chunk.js.map": "/remonter/static/js/2.46e403b3.chunk.js.map",
     "index.html": "/remonter/index.html",
-    "precache-manifest.3dc2527cb4bbd39afbcb1f3c692ab897.js": "/remonter/precache-manifest.3dc2527cb4bbd39afbcb1f3c692ab897.js",
+    "precache-manifest.2df2382709b52404e349bf2d4b42991b.js": "/remonter/precache-manifest.2df2382709b52404e349bf2d4b42991b.js",
     "service-worker.js": "/remonter/service-worker.js",
     "static/js/2.46e403b3.chunk.js.LICENSE.txt": "/remonter/static/js/2.46e403b3.chunk.js.LICENSE.txt",
     "static/media/add.0e3e08bc.svg": "/remonter/static/media/add.0e3e08bc.svg",
@@ -20,6 +20,6 @@
   "entrypoints": [
     "static/js/runtime-main.b02a96ab.js",
     "static/js/2.46e403b3.chunk.js",
-    "static/js/main.a08701e6.chunk.js"
+    "static/js/main.c1ecb40a.chunk.js"
   ]
 }
